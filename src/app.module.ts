@@ -1,9 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BooksModule } from './books/books.module';
+import { RentalsModule } from './rentals/rentals.module';
+import { CustomersModule } from './customers/customers.module';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: '1234',
+      database: 'book-rental-dev',
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
+    BooksModule,
+    RentalsModule,
+    CustomersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
