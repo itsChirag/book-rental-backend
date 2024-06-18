@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BooksModule } from './books/books.module';
 import { RentalsModule } from './rentals/rentals.module';
 import { CustomersModule } from './customers/customers.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { CustomersModule } from './customers/customers.module';
       username: 'postgres',
       password: '1234',
       database: 'book-rental-dev',
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+      migrations: [join(__dirname, '**/migrations/*{.ts,.js}')],
       synchronize: true,
     }),
     BooksModule,
