@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { RentalsModule } from './rentals/rentals.module';
 import { CustomersModule } from './customers/customers.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,12 +26,13 @@ import { CustomersModule } from './customers/customers.module';
 
         return {
           type: 'postgres',
-          host: host,
-          port: port,
-          username: username,
-          password: password,
-          database: database,
-          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+          host,
+          port,
+          username,
+          password,
+          database,
+          entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+          migrations: [join(__dirname, '**/migrations/*{.ts,.js}')],
           synchronize: true,
         };
       },
